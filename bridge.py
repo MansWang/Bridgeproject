@@ -51,7 +51,7 @@ def scan_blocks(chain, contract_info="contract_info.json"):
     
         #YOUR CODE HERE
     
-    contracts = get_all_contract_info(contract_info)
+    contracts = get_contract_info(contract_info)
 
     private_key = contracts.get("warden_private_key") or os.environ.get("BRIDGE_WARDEN_PRIVATE_KEY")
     if not private_key:
