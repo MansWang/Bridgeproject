@@ -34,12 +34,6 @@ def get_contract_info(chain, contract_info):
     return contracts[chain]
 
 
-def sign_and_send(w3, tx, private_key):
-    signed_tx = w3.eth.account.sign_transaction(tx, private_key)
-    tx_hash = w3.eth.send_raw_transaction(signed_tx.raw_transaction)
-    receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
-    return receipt
-
 
 def scan_blocks(chain, contract_info="contract_info.json"):
     """
@@ -55,47 +49,7 @@ def scan_blocks(chain, contract_info="contract_info.json"):
         print( f"Invalid chain: {chain}" )
         return 0
     
-        #YOUR CODE HERE
-    
-   from web3 import Web3
-from web3.providers.rpc import HTTPProvider
-from web3.middleware import ExtraDataToPOAMiddleware  # Necessary for POA chains
-import json
-
-
-def connect_to(chain):
-    if chain == 'source':  # The source contract chain is avax
-        api_url = "https://api.avax-test.network/ext/bc/C/rpc"  # AVAX C-chain testnet
-    elif chain == 'destination':  # The destination contract chain is bsc
-        api_url = "https://data-seed-prebsc-1-s1.binance.org:8545/"  # BSC testnet
-    else:
-        raise ValueError(f"Invalid chain: {chain}")
-
-    w3 = Web3(Web3.HTTPProvider(api_url))
-    w3.middleware_onion.inject(ExtraDataToPOAMiddleware, layer=0)
-    return w3
-
-
-def get_contract_info(chain, contract_info):
-    """
-    Load the contract_info file into a dictionary.
-    This function is used by the autograder and will likely be useful to you.
-    """
-    try:
-        with open(contract_info, 'r') as f:
-            contracts = json.load(f)
-    except Exception as e:
-        print(f"Failed to read contract info\nPlease contact your instructor\n{e}")
-        return 0
-    return contracts[chain]
-
-
-def sign_and_send(w3, tx, private_key):
-    signed_tx = w3.eth.account.sign_transaction(tx, private_key)
-    tx_hash = w3.eth.send_raw_transaction(signed_tx.raw_transaction)
-    receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
-    return receipt
-
+        #YOUR CODE HEREfrom web3 import Web3
 
 def scan_blocks(chain, contract_info="contract_info.json"):
     """
@@ -238,3 +192,5 @@ if __name__ == "__main__":
         contract_info_file = sys.argv[2]
 
     scan_blocks(chain, contract_info_file)
+    
+
