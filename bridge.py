@@ -51,11 +51,15 @@ def scan_blocks(chain, contract_info="contract_info.json"):
     
         #YOUR CODE HERE
     
-    contracts = get_contract_info(contract_info)
+    source_info = get_contract_info("source", contract_info)
+    dest_info = get_contract_info("destination", contract_info)
 
-    private_key = contracts.get("warden_private_key") or os.environ.get("BRIDGE_WARDEN_PRIVATE_KEY")
+    with open(contract_info, "r") as f:
+        contracts = json.load(f)
+
+    private_key = contracts.get("warden_private_key")
     if not private_key:
-        raise ValueError("No warden private key found in contract_info.json or environment variable")
+        raise ValueError("No warden private key found")
 
     if not private_key.startswith("0x"):
         private_key = "0x" + private_key
