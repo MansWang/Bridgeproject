@@ -33,6 +33,11 @@ def get_contract_info(chain, contract_info):
         return 0
     return contracts[chain]
 
+def sign_and_send(w3, tx, private_key):
+    signed_tx = w3.eth.account.sign_transaction(tx, private_key)
+    tx_hash = w3.eth.send_raw_transaction(signed_tx.raw_transaction)
+    receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
+    return receipt
 
 
 def scan_blocks(chain, contract_info="contract_info.json"):
